@@ -10,27 +10,42 @@ O objetivo é duplo:
 
 ## O que você vai encontrar aqui
 
-Conteúdos focados em “como fazer” (hands-on), incluindo:
+Conteúdos focados em “como fazer” (hands-on), com passo a passo, prints e exercícios, incluindo:
 
 - SageMaker Studio
-  - Primeiros passos, ambientes, permissões e organização do workspace
-- Notebooks
-  - Studio Notebooks e conceitos relacionados
+  - Como criar um domínio e acessar o Studio
+- SageMaker Canvas
+  - Uso do Canvas como porta de entrada para fluxos de preparação de dados
 - Data Wrangler
-  - Importação de dados (S3, Redshift, etc.)
-  - Preparação/limpeza e transformações
-  - Visualizações e insights
-  - Feature Engineering
-  - Exportação do fluxo e uso no SageMaker
-  - Quick Model (validação rápida do dataset + métricas)
+  - Importação de dados (Local upload, S3, Athena, Redshift)
+  - Dataflow (criação e organização do fluxo)
+  - Análises no dataflow (ex.: "Get data inights" -> "Feature correlation")
+  - Transformações (ex.: "Add tranform" -> "Add new", "Handle outliers", tratamento de nulos e ajustes de valores)
+  - Exportação do dataflow (ex.: "export" -> "Export via jupyter notebook" para S3)
 
-A ideia é manter tudo de forma simples e direta: passo a passo, prints, exemplos e dicas.
+A ideia é manter tudo de forma simples e direta: do “zero” (setup) até ter dados preparados e exportados para usar em notebooks e etapas de treinamento de modelos.
 
 ---
 
-## Estrutura do repositório (sugestão)
+## Estrutura do repositório
 
-Você pode navegar pelos tópicos por pasta.
+A estrutura abaixo reflete o conteúdo visto até agora e pode evoluir com novos tópicos:
+
+- `SageMaker Studio/`
+  - `domain_setup/`  
+    - criação do domínio e acesso ao Studio
+- `Data Wrangler/`
+  - `datasets/`
+    - `income_data.csv`
+  - `images/`
+    - `import_data/`
+    - `data_analyses/`
+    - `transform/`
+    - `data_export/`
+  - `import_data.md`
+  - `data_analyses.md`
+  - `transformations.md`
+  - `data_export.md`
 
 ---
 
@@ -47,8 +62,12 @@ Para reproduzir os exemplos, normalmente você vai precisar de:
 
 ## Como usar este repositório
 
-1. Escolha um tema (ex.: `03-data-wrangler/`).
-2. Siga o passo a passo da pasta.
+1. Comece por `SageMaker Studio/domain_setup/` para criar o domínio e liberar o Studio.
+2. Depois siga a sequência em `Data Wrangler/`:
+   - `import_data.md`
+   - `data_analyses.md`
+   - `transformations.md`
+   - `data_export.md`
 3. Replique o fluxo na sua conta AWS.
 4. Compare seus resultados com os prints e observações.
 
