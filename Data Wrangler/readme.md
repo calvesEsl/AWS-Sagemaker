@@ -32,7 +32,7 @@ A ideia é manter tudo de forma simples e direta: do “zero” (setup) até ter
 A estrutura abaixo reflete o conteúdo visto até agora e pode evoluir com novos tópicos:
 
 - `SageMaker Studio/`
-  - `domain_setup/`  
+  - `domain_config/`  
     - criação do domínio e acesso ao Studio
 - `Data Wrangler/`
   - `datasets/`
@@ -44,7 +44,7 @@ A estrutura abaixo reflete o conteúdo visto até agora e pode evoluir com novos
     - `data_export/`
   - `import_data.md`
   - `data_analyses.md`
-  - `transformations.md`
+  - `data_transformation.md`
   - `data_export.md`
 
 ---
@@ -62,11 +62,11 @@ Para reproduzir os exemplos, normalmente você vai precisar de:
 
 ## Como usar este repositório
 
-1. Comece por `SageMaker Studio/domain_setup/` para criar o domínio e liberar o Studio.
+1. Comece por `SageMaker Studio/domain_config/` para criar o domínio e liberar o Studio.
 2. Depois siga a sequência em `Data Wrangler/`:
    - `import_data.md`
    - `data_analyses.md`
-   - `transformations.md`
+   - `data_transformation.md`
    - `data_export.md`
 3. Replique o fluxo na sua conta AWS.
 4. Compare seus resultados com os prints e observações.
