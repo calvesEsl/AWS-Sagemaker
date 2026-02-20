@@ -20,24 +20,23 @@ A proposta é manter um material direto e reproduzível, para reforçar meus est
 
 ---
 
-This repository is dedicated to my studies of Amazon SageMaker and its core tools, bringing together notes and practical demos focused on hands-on learning and consolidating knowledge.
+# AWS SageMaker — Studies
 
-The content covers the Machine Learning lifecycle in SageMaker, including:
+This repository is dedicated to my studies of **Amazon SageMaker** and its core tools, bringing together notes and practical demos focused on hands-on learning and consolidating knowledge.
 
-environment setup and organization
+The content walks through the Machine Learning lifecycle in SageMaker, including:
 
-data ingestion and preparation
+- environment setup and organization  
+- data ingestion and preparation  
+- experimentation and model training  
+- evaluation and tuning  
+- deployment and production serving (endpoints/serving)  
+- monitoring and best practices  
 
-experimentation and model training
+The goal is to keep the material clear and reproducible, both to support my learning and to serve as a reference for others.
 
-evaluation and tuning
+---
 
-deployment and production serving (endpoints/serving)
+## Contact
 
-monitoring and best practices
-
-The goal is to keep the material clear and reproducible, to support my learning and also serve as a reference for others.
-
-Contact
-
-LinkedIn: https://www.linkedin.com/in/caio-alves-520469266/
+- LinkedIn: https://www.linkedin.com/in/caio-alves-520469266/
