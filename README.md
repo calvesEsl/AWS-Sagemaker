@@ -17,3 +17,27 @@ A proposta é manter um material direto e reproduzível, para reforçar meus est
 ## Contato
 
 - LinkedIn: https://www.linkedin.com/in/caio-alves-520469266/
+
+---
+
+This repository is dedicated to my studies of Amazon SageMaker and its core tools, bringing together notes and practical demos focused on hands-on learning and consolidating knowledge.
+
+The content covers the Machine Learning lifecycle in SageMaker, including:
+
+environment setup and organization
+
+data ingestion and preparation
+
+experimentation and model training
+
+evaluation and tuning
+
+deployment and production serving (endpoints/serving)
+
+monitoring and best practices
+
+The goal is to keep the material clear and reproducible, to support my learning and also serve as a reference for others.
+
+Contact
+
+LinkedIn: https://www.linkedin.com/in/caio-alves-520469266/
