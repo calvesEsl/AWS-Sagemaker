@@ -1,0 +1,138 @@
+import sagemaker
+import boto3
+from sagemaker import image_uris
+from sagemaker.inputs import TrainingInput
+from sagemaker.tuner import HyperparameterTuner, IntegerParameter, ContinuousParameter
+
+# Initialize SageMaker session and role
+sagemaker_session = sagemaker.Session()
+role = sagemaker.get_execution_role()
+
+# Define hyperparameters for the base estimator
+base_hyperparameters = {
+    "objective": "reg:squarederror",
+    "num_round": 50
+}
+
+# Define the XGBoost container image URI
+region = boto3.Session().region_name  # Automatically get the region
+xgboost_container = image_uris.retrieve("xgboost", region, "1.7-1")
+
+# Define the Estimator
+estimator = sagemaker.estimator.Estimator(
+    image_uri=xgboost_container,
+    hyperparameters=base_hyperparameters,
+    role=role,
+    instance_count=1,
+    instance_type='ml.m5.xlarge',
+    volume_size=5,  # 5 GB
+    output_path=f's3://{bucket}/{prefix}/output',
+    sagemaker_session=sagemaker_session
+)
+
+# Define hyperparameter ranges for tuning
+hyperparameter_ranges = {
+    'max_depth': IntegerParameter(3, 10),
+    'eta': ContinuousParameter(0.1, 0.5),
+    'gamma': ContinuousParameter(0, 5),
+    'min_child_weight': IntegerParameter(1, 10),
+    'subsample': ContinuousParameter(0.5, 1.0)
+}
+
+# Define metric definitions (example for XGBoost)
+metric_definitions = [{
+    'Name': 'validation:rmse',
+    'Regex': '.*\\[validation-rmse\\] ([0-9\\.]+)'
+}]
+
+# Define objective metric
+objective_metric_name = 'validation:rmse'
+
+# Create the HyperparameterTuner
+tuner = HyperparameterTuner(
+    estimator=estimator,
+    objective_metric_name=objective_metric_name,
+    hyperparameter_ranges=hyperparameter_ranges,
+    metric_definitions=metric_definitions,
+    objective_type='Minimize',
+    max_jobs=50,
+    max_parallel_jobs=3
+)
+
+# Define data inputs
+train_input = TrainingInput(f"s3://{bucket}/input-data/train/", content_type="csv")
+validation_input = TrainingInput(f"s3://{bucket}/input-data/validation/", content_type="csv")
+
+# Start the hyperparameter tuning job with a unique job name
+tuner.fit({
+    'train': train_input,
+    'validation': validation_input
+}, job_name='xgb-tuning-job')  # Use a unique job name
+
+
+
+
+
+
+////////////////////////////////////
+
+
+
+
+
+import boto3
+
+# Initialize Boto3 client
+client = boto3.client('sagemaker')
+
+# Describe the tuning job
+tuning_job_name = 'your-tuning-job-name'
+response = client.describe_hyper_parameter_tuning_job(HyperParameterTuningJobName=tuning_job_name)
+
+# Get the best training job
+best_training_job = response['BestTrainingJob']
+
+print("Best Training Job:", best_training_job)
+
+# Print details of the best training job
+best_training_job_name = best_training_job['TrainingJobName']
+best_training_job_response = client.describe_training_job(TrainingJobName=best_training_job_name)
+
+print("Best Training Job Details:", best_training_job_response)
+
+# Metrics
+metrics = best_training_job_response.get('FinalMetricDataList', [])
+for metric in metrics:
+    print(f"Metric Name: {metric['MetricName']}, Value: {metric['Value']}")
+
+
+
+
+
+
+##########################################################
+
+
+
+
+
+import boto3
+
+# Initialize Boto3 client
+client = boto3.client('sagemaker')
+
+# Describe the tuning job
+tuning_job_name = 'xgb-tuning-job'  # Replace with your tuning job name
+response = client.describe_hyper_parameter_tuning_job(HyperParameterTuningJobName=tuning_job_name)
+
+# Get the best training job
+best_training_job = response['BestTrainingJob']
+best_training_job_name = best_training_job['TrainingJobName']
+
+# Describe the best training job
+best_training_job_response = client.describe_training_job(TrainingJobName=best_training_job_name)
+
+# Get the best hyperparameters
+best_hyperparameters = best_training_job_response['HyperParameters']
+print("Best Hyperparameters:", best_hyperparameters)
+
